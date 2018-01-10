@@ -42,7 +42,7 @@ setup(
         'plone.api',
         'Products.GenericSetup>=1.8.2',
         'plone.app.portlets>=4.0.0',
-        'plone.app.layout'
+        'plone.app.layout',
         'setuptools',
         'z3c.jbot',
     ],
