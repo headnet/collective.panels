@@ -32,6 +32,13 @@ collective.panels 1.x is for Plone 4.
 collective.panels 2.x is for Plone 5.1
 
 
+Migrate to 2.x
+--------------
+
+Uninstall version 1.x from your plone site control panel.
+
+Afterwards install 2.x
+
 
 Similar packages
 ----------------
