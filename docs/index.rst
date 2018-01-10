@@ -1,0 +1,5 @@
+====================
+collective.panels
+====================
+
+User documentation
