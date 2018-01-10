@@ -14,20 +14,20 @@ long_description = '\n\n'.join([
 
 setup(
     name='collective.panels',
-    version='1.0a1',
+    version='2.0a1',
     description="Add-on for Plone that adds portlet panels.",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
-        "Framework :: Plone :: 5.1rc2",
+        "Framework :: Plone :: 5.1",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
-    keywords='Python Plone',
+    keywords='Python Plone portlets',
     author='Malthe Borch',
     author_email='mborch@gmail.com',
     url='https://pypi.python.org/pypi/collective.panels',
@@ -41,15 +41,13 @@ setup(
         # -*- Extra requirements: -*-
         'plone.api',
         'Products.GenericSetup>=1.8.2',
+        'plone.app.portlets>=4.0.0',
         'setuptools',
         'z3c.jbot',
     ],
     extras_require={
         'test': [
             'plone.app.testing',
-            # Plone KGS does not use this version, because it would break
-            # Remove if your package shall be part of coredev.
-            # plone_coredev tests as of 2016-04-01.
             'plone.testing>=5.0.0',
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
