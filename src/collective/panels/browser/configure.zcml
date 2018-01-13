@@ -68,6 +68,50 @@
       />
 
 
+  <!-- Manage views -->
+
+  <browser:page
+    for="plone.portlets.interfaces.ILocalPortletAssignable"
+    class=".manage.TopbarManagePanels"
+    permission="plone.app.portlets.ManagePortlets"
+    name="topbar-manage-panels"
+    template="templates/topbar-manage-panels.pt"
+    />
+
+<!--   <browser:pages
+    for="collective.panels.content.Panel"
+    class=".manage.ManagePanelPortlets"
+    permission="plone.app.portlets.ManagePortlets"
+    >
+
+    <browser:page
+      name="manage-panels"
+      template="templates/manage-contextual.pt"
+      />
+    <browser:page
+      name="set-portlet-blacklist-status"
+      attribute="set_blacklist_status"
+      />
+    <browser:page
+      name="delete"
+      attribute="delete"
+      />
+    <browser:page
+      name="save"
+      attribute="save"
+      />
+    <browser:page
+      name="duplicate"
+      attribute="duplicate"
+      />
+    <browser:page
+      name="change-layout"
+      attribute="change_layout"
+      />
+
+  </browser:pages>
+ -->
+
   <!-- Layouts -->
 
   <browser:panellayout

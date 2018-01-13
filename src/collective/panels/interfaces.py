@@ -49,6 +49,10 @@ class IPanelManagerMenu(IBrowserMenu):
     """
 
 
+class ITopbarManagePanels(Interface):
+    pass
+
+
 class IPanelLayoutDirective(Interface):
     name = schema.TextLine(
         title=_("Name"),
