@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
 <registry>
+  <records interface="collective.panels.interfaces.IGlobalSettings" />
+
+  <record name="plone.app.portlets.PortletManagerBlacklist">
+    <value purge="false">
+      <element>panels</element>
+    </value>
+  </record>
 
 </registry>
