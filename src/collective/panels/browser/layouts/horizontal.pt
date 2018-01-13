@@ -1,0 +1,24 @@
+<div class="row"
+     tal:define="portlets portlets | python: (1, 2, 3, '&rarr;');
+                 block_width block_width | nothing;
+                 portlet_count python:len(portlets)"
+     tal:condition="portlets">
+  <tal:loop tal:repeat="portlet portlets"
+            tal:condition="python:portlet_count &gt; 1">
+    <div class="cell"
+         tal:define="index repeat/portlet/index;
+                     number python: index>0 and portlet_count%index==0 and portlet_count/index or portlet_count;
+                     count python: portlet_count!=number and 1 or index;
+                     pos  string:position-${count}:${number};
+                     position python:index==0 and 'position-0' or pos"
+         tal:attributes="class string:cell width-1:${portlet_count} ${position};">
+      <div tal:attributes="class string:content portlet-${index}"
+           tal:content="structure portlet" />
+    </div>
+  </tal:loop>
+  <div class="cell width-full position-0"
+       tal:condition="python: portlet_count==1">
+      <div tal:attributes="class string:content portlet-0"
+           tal:content="structure python:portlets[0]" />
+  </div>
+</div>
