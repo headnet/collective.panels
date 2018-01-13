@@ -67,6 +67,16 @@
       template="templates/display_panel.pt"
       />
 
+
+  <!-- Layouts -->
+
+  <browser:panellayout
+      name="horizontal"
+      title="A"
+      description="Single row of portlets"
+      template="layouts/horizontal.pt"
+      />
+
   <!-- Control panel -->
   <browser:page
       name="panels-controlpanel"

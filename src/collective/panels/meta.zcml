@@ -1,0 +1,11 @@
+<configure xmlns:meta="http://namespaces.zope.org/meta">
+
+  <meta:directives namespace="http://namespaces.zope.org/browser">
+    <meta:directive
+        name="panellayout"
+        schema=".interfaces.IPanelLayoutDirective"
+        handler=".zcml.panellayout"
+        />
+  </meta:directives>
+
+</configure>

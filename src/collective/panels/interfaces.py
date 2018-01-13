@@ -7,6 +7,8 @@ from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.container.interfaces import IContained
 from collective.panels import _
+from zope.configuration.fields import Path
+from zope.configuration.fields import GlobalInterface
 
 #todo: check this:
 from plone.app.portlets.interfaces import IColumn
@@ -45,6 +47,34 @@ class IPanelManagerMenu(IBrowserMenu):
 
     TODO: This gets its menu items from the list of possible portlet managers.
     """
+
+
+class IPanelLayoutDirective(Interface):
+    name = schema.TextLine(
+        title=_("Name"),
+        required=True
+    )
+
+    title = schema.TextLine(
+        title=_("Title"),
+        required=True
+    )
+
+    description = schema.TextLine(
+        title=_("Description"),
+        required=True
+    )
+
+    template = Path(
+        title=_("Template"),
+        required=True
+    )
+
+    layer = GlobalInterface(
+        title=_("Layer"),
+        required=True,
+        default=ICollectivePanelsLayer,
+    )
 
 
 class IGlobalSettings(Interface):
