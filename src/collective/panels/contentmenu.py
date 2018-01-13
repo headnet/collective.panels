@@ -186,7 +186,6 @@ class PanelManagerMenu(BrowserMenu):
             # panels.
             return items
 
-        from ipdb import set_trace; set_trace()
         managers = self.available_locations(context, request)
         current_url = context.absolute_url()
 
