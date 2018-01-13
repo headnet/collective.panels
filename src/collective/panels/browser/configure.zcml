@@ -18,4 +18,62 @@
       directory="static"
       />
 
+  <!-- Panel display viewlets (possible locations) -->
+
+  <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
+      name="collective.panels.abovecontent"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+      class=".display.DisplayPanelManagerViewlet"
+      permission="zope2.View"
+      layer="collective.panels.interfaces.ICollectivePanelsLayer"
+      />
+
+  <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
+      name="collective.panels.belowcontent"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      class=".display.DisplayPanelManagerViewlet"
+      permission="zope2.View"
+      layer="collective.panels.interfaces.ICollectivePanelsLayer"
+      />
+
+  <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
+      name="collective.panels.portalfooter"
+      manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+      class=".display.DisplayPanelManagerViewlet"
+      permission="zope2.View"
+      layer="collective.panels.interfaces.ICollectivePanelsLayer"
+      />
+
+  <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
+      name="collective.panels.portaltop"
+      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+      class=".display.DisplayPanelManagerViewlet"
+      permission="zope2.View"
+      layer="collective.panels.interfaces.ICollectivePanelsLayer"
+      />
+
+  <!-- Display views -->
+
+  <browser:page
+      name="display-panel"
+      for="collective.panels.content.Panel"
+      class=".display.DisplayPanelView"
+      layer="collective.panels.interfaces.ICollectivePanelsLayer"
+      permission="zope2.View"
+      template="templates/display_panel.pt"
+      />
+
+  <!-- Control panel -->
+  <browser:page
+      name="panels-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.ControlPanel"
+      permission="cmf.ManagePortal"
+      layer="collective.panels.interfaces.ICollectivePanelsLayer"
+      />
+
 </configure>

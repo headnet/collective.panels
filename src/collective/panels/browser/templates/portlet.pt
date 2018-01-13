@@ -1,0 +1,6 @@
+<tal:block define="portlet options">
+  <div class="portletWrapper"
+    tal:attributes="id string:portletwrapper-${portlet/hash};
+                    data-portlethash portlet/hash"
+    tal:content="structure python:view.safe_render_portlet(portlet['renderer'])" />
+</tal:block>

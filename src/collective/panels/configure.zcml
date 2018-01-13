@@ -2,11 +2,12 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:plone="http://namespaces.plone.org/plone"
+           xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.panels">
 
-  <i18n:registerTranslations directory="locales" />
-
   <include package="plone.app.layout" />
+
+  <i18n:registerTranslations directory="locales" />
 
   <include package=".browser" />
 
@@ -18,5 +19,48 @@
       factory=".setuphandlers.HiddenProfiles"
       name="collective.panels-hiddenprofiles"
       />
+
+  <utility name="panels" factory=".panelmanager.PanelPortletManager" />
+
+  <adapter
+      for=".interfaces.IPanel
+           plone.portlets.interfaces.IPortletManager"
+      provides="plone.portlets.interfaces.IPortletAssignmentMapping"
+      factory=".content.getAssignmentMapping"
+      />
+
+  <!-- Traversal -->
+  <adapter
+      name="panel"
+      factory=".traversal.PanelTraverser"
+      />
+
+  <!-- Vocabularies -->
+  <utility
+      component=".vocabularies.managers"
+      name="collective.panels.vocabularies.Managers"
+      />
+
+
+  <!-- The toolbar menu -->
+  <browser:menu
+    id="plone_contentmenu_panelmanager"
+    title="The 'panels' menu - allows the user to manage panels"
+    class=".contentmenu.PanelManagerMenu"
+    />
+
+  <adapter for="* *"
+           name="plone.contentmenu.panelmanager"
+           factory=".contentmenu.PanelManagerSubMenuItem"
+           provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
+
+  <!-- Permissions -->
+  <class class=".content.Panel">
+    <require
+        permission="zope2.View"
+        attributes="heading"
+        />
+  </class>
 
 </configure>

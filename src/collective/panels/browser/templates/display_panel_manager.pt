@@ -1,0 +1,25 @@
+<div class="panels" i18n:domain="collective.panels"
+     tal:define="panels view/panels"
+     tal:condition="python: panels">
+  <tal:panels repeat="panel panels">
+    <tal:render define="html panel/@@display-panel">
+
+      <div tal:attributes="class string:panel panel-${repeat/panel/index} panel-${panel/layout}"
+           tal:condition="html"
+           tal:content="structure html"
+           /><!-- todo: a row? -->
+
+      <tal:manage condition="view/can_manage">
+        <dl class="portalMessage info"
+            tal:condition="python: not html.strip() and view.can_manage">
+          <dt i18n:translate="">Info</dt>
+          <dd i18n:translate="">This panel is empty.</dd>
+        </dl>
+
+        <div class="visualClear"></div>
+        <div class="panel-management-wrapper"
+             tal:content="structure panel/@@manage" />
+      </tal:manage>
+    </tal:render>
+  </tal:panels>
+</div>
