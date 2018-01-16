@@ -161,25 +161,6 @@ class BaseViewlet(ViewletBase):
 
         self.root_interface = root_interface()
 
-    @property
-    def can_manage(self):
-        try:
-            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
-        except (ComponentLookupError, KeyError):
-            # This (non-critical) error is reported elsewhere. The
-            # product needs to be installed before we let users manage
-            # panels.
-            return False
-        else:
-            for interface in settings.site_local_managers or ():
-                if interface.providedBy(self.manager):
-                    if not self.root_interface.providedBy(self.context):
-                        return False
-
-        return checkPermission(
-            "plone.app.portlets.ManagePortlets", self.context
-        )
-
 
 class DisplayPanelManagerViewlet(BaseViewlet):
     """ This viewlet renders all panels in a panel manager
