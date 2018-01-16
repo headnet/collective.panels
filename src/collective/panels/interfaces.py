@@ -9,6 +9,7 @@ from zope.container.interfaces import IContained
 from collective.panels import _
 from zope.configuration.fields import Path
 from zope.configuration.fields import GlobalInterface
+from zope.contentprovider.interfaces import IContentProvider
 
 #todo: check this:
 from plone.app.portlets.interfaces import IColumn
@@ -51,6 +52,43 @@ class IPanelManagerMenu(IBrowserMenu):
 
 class ITopbarManagePanels(Interface):
     pass
+
+
+class IManagePanelsView(Interface):
+    """Marker for the manage contextual portlets view
+    """
+    # todo: remove categ.
+    category = Attribute("The portlet category being managed")
+    key = Attribute("The key in the category under which portlets are assigned")
+
+    def getAssignmentMappingUrl(manager):
+        """Given a portlet manager, get the URL to its assignment mapping.
+        """
+
+    def getAssignmentsForManager(manager):
+        """Get the assignments in the current context for the given manager.
+        """
+
+
+class IPanelManager(Interface):
+    """Marker for the manage contextual portlets view
+    """
+
+
+class IPanelManagerRenderer(IContentProvider):
+    """A content provider for rendering a panel manager.
+    """
+
+    # todo:
+    template = Attribute(
+        """A page template object to render the manager with.
+
+        If given, this will be passed an option 'portlets' that is a list of
+        the IPortletRenderer objects to render.
+
+        If not set, the renderers will simply be called one by one, and their
+        output will be concatenated, separated by newlines.
+        """)
 
 
 class IPanelLayoutDirective(Interface):

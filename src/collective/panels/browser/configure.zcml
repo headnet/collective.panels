@@ -78,17 +78,18 @@
     template="templates/topbar-manage-panels.pt"
     />
 
-<!--   <browser:pages
-    for="collective.panels.content.Panel"
-    class=".manage.ManagePanelPortlets"
+  <browser:pages
+    for="plone.portlets.interfaces.ILocalPortletAssignable"
+    class=".manage.ManagePanels"
     permission="plone.app.portlets.ManagePortlets"
     >
 
+    <!-- todo: merge and move operations to below -->
     <browser:page
       name="manage-panels"
       template="templates/manage-contextual.pt"
       />
-    <browser:page
+<!--     <browser:page
       name="set-portlet-blacklist-status"
       attribute="set_blacklist_status"
       />
@@ -108,9 +109,44 @@
       name="change-layout"
       attribute="change_layout"
       />
-
-  </browser:pages>
  -->
+  </browser:pages>
+
+  <!-- Renderer for the columns in edit mode -->
+  <adapter
+      factory=".editmanager.EditPanelManagerRenderer"
+      provides="collective.panels.interfaces.IPanelManagerRenderer"
+      />
+
+  <!-- Operations on panels when in edit mode -->
+  <browser:pages
+    for="plone.portlets.interfaces.IPortletAssignmentMapping"
+    class=".editmanager.ManagePanelAssignments"
+    permission="plone.app.portlets.ManagePortlets"
+    >
+
+    <browser:page
+      name="delete-panel"
+      attribute="delete_panel"
+      />
+
+    <browser:page
+      name="move-panel-up"
+      attribute="move_panel_up"
+      />
+
+    <browser:page
+      name="move-panel-down"
+      attribute="move_panel_down"
+      />
+
+    <!-- todo later: -->
+<!--     <browser:page
+      name="toggle-visibility"
+      attribute="toggle_visibility"
+      />
+ -->
+  </browser:pages>
 
   <!-- Layouts -->
 

@@ -29,7 +29,8 @@
       factory=".content.getAssignmentMapping"
       />
 
-  <!-- Traversal -->
+  <!-- Traversal - the 'panel' namespace traverser. Example: "++panel++plone.belowcontentbody" -->
+  <!-- todo: rename to panels or to panelmanager -->
   <adapter
       name="panel"
       factory=".traversal.PanelTraverser"

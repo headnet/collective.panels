@@ -5,6 +5,15 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 from collective.panels import _
 
+# todo: this could be dynamic:
+
+MANAGER_INTERFACE_TO_NAME = {
+    interfaces.IBelowContentBody: 'plone.belowcontentbody',
+    interfaces.IAboveContentBody: 'plone.abovecontentbody',
+    interfaces.IPortalFooter: 'plone.portalfooter',
+    interfaces.IPortalTop: 'plone.portaltop',
+}
+
 
 class ManagerVocabulary(object):
     implements(IVocabularyFactory)

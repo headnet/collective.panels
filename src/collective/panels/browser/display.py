@@ -12,7 +12,6 @@ from collective.panels import _
 from collective.panels.interfaces import IGlobalSettings
 from collective.panels.interfaces import ILayout
 from collective.panels.interfaces import IPanel
-from collective.panels.utils import encode
 from collective.panels.traversal import PanelManager
 from plone.app.portlets.manager import ColumnPortletManagerRenderer
 from plone.portlets.constants import CONTEXT_CATEGORY
@@ -21,7 +20,6 @@ from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletAssignmentSettings
 from plone.portlets.interfaces import IPortletRenderer
 from plone.portlets.utils import hashPortletInfo
-from plone.registry.interfaces import IRegistry
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
@@ -190,12 +188,13 @@ class DisplayPanelManagerViewlet(BaseViewlet):
 
     @property
     def normalized_manager_name(self):
-        # todo - what manager?
-        return encode(self.manager.__name__)
+        # Get the viewlet manager name. It is also used as the panel manager
+        # name.
+        return self.manager.__name__
 
     @property
     def panels(self):
-        context = self.context
+        location = self.context
 
         try:
             settings = getUtility(IRegistry).forInterface(IGlobalSettings)
@@ -209,20 +208,22 @@ class DisplayPanelManagerViewlet(BaseViewlet):
                 type="warning"
             )
         else:
+            # If the panel manager interfaces (aka viewlet managers) are
+            # defined as site-only or navigation-root-only in the settings,
+            # go up the aq_chain to find the panel definition location.
             for interface in settings.site_local_managers or ():
                 if interface.providedBy(self.manager):
-                    while not self.root_interface.providedBy(context):
-                        context = context.aq_parent
-                        if context is None:
+                    while not self.root_interface.providedBy(location):
+                        location = location.aq_parent
+                        if location is None:
                             raise RuntimeError("No site found.")
 
         # Wrap the panel in an acquisition context that provides
         # information about which viewlet manager the panel is
         # implicitly associated with.
-        # TODO - excplicit names for context and self.context -> debugger
         # TODO - name viewlet-manager and panel-manager explicit
         manager = PanelManager(
-            self.context, self.request, context, self.normalized_manager_name
+            self.context, self.request, location, self.normalized_manager_name
         ).__of__(self.context)
 
         return tuple(manager)

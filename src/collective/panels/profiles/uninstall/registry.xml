@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records
+    remove="True"
+    interface="Products.CMFPlone.interfaces.IResourceRegistry"
+    prefix="plone.resources/collective-panels"/>
+
+  <records
+    remove="True"
+    interface="Products.CMFPlone.interfaces.IBundleRegistry"
+    prefix="plone.bundles/collective-panels" />
+
+</registry>

@@ -21,8 +21,6 @@ from collective.panels.interfaces import IPanelManagerMenu
 from collective.panels.interfaces import IGlobalSettings
 from collective.panels import _
 from collective.panels.utils import root_interface
-from collective.panels.utils import encode
-from collective.panels.utils import decode
 from collective.panels.browser.display import DisplayPanelManagerViewlet
 from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
 from Products.Five.browser import BrowserView as View
@@ -119,7 +117,7 @@ class PanelManagerMenu(BrowserMenu):
     def _iter_locations(self, context, request):
         for viewlet_manager_name, viewlet_manager_title in self._iter_viewlet_managers(context, request):
             yield {
-                'name': encode(viewlet_manager_name),
+                'name': viewlet_manager_name,
                 'title': viewlet_manager_title,
             }
 

@@ -21,18 +21,22 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from zope.interface import alsoProvides
 from collective.panels.utils import encode
 from collective.panels.utils import decode
+from collective.panels.interfaces import IPanelManager
 
 
 class PanelManager(Implicit, Traversable):
     implements(
         IBrowserPublisher,
         IPortletAssignmentMapping,
-        ILocalPortletAssignable
+        ILocalPortletAssignable,
+        IPanelManager
     )
 
     __allow_access_to_unprotected_subobjects__ = 1
 
     def __init__(self, context, request, location, name):
+        # context is the rendering context of the panel.
+        # location is the location of the panel definition.
         self.__name__ = decode(name)
         self.context = context
         self.request = request
