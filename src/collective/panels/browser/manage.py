@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.interface import implementer_only
 from zope.interface import implementer
 from zope.component import getMultiAdapter, getUtility
@@ -92,7 +93,6 @@ class TopbarManagePanels(ManagePanels):
                         if location is None:
                             raise RuntimeError("No site found.")
 
-        from ipdb import set_trace; set_trace()
         panel_manager = PanelManager(
             self.context, self.request, location, self.manager_name
         ).__of__(self.context)

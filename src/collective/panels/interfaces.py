@@ -10,6 +10,7 @@ from collective.panels import _
 from zope.configuration.fields import Path
 from zope.configuration.fields import GlobalInterface
 from zope.contentprovider.interfaces import IContentProvider
+from zope.browser.interfaces import IAdding
 
 #todo: check this:
 from plone.app.portlets.interfaces import IColumn
@@ -68,6 +69,11 @@ class IManagePanelsView(Interface):
     def getAssignmentsForManager(manager):
         """Get the assignments in the current context for the given manager.
         """
+
+
+class IPanelAdding(IAdding):
+    """Marker interface for the add view for panel managers.
+    """
 
 
 class IPanelManager(Interface):

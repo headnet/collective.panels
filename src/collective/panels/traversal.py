@@ -51,29 +51,6 @@ class PanelManager(Implicit, Traversable):
             _(u"Panel removed."), type="info")
 
     def __getitem__(self, name):
-        if name == "+":
-            # To-Do: Ideally this should be POST-only to protect
-            # against CSRF. It's not critical.
-            alsoProvides(self.request, IDisableCSRFProtection)
-            try:
-                layout = self.request.TraversalRequestNameStack.pop()
-            except IndexError:
-                raise BadRequest("Missing layout.")
-
-            def adding():
-                """Add panel, then redirect to referer."""
-
-                self.addPanel(layout)
-
-                referer = (
-                    self.request.get('HTTP_REFERER') or
-                    self.context.absolute_url()
-                )
-
-                return self.request.response.redirect(referer)
-
-            return ExplicitAcquisitionWrapper(adding, self)
-
         for panel in self.getAssignments():
             if panel.__name__ == name:
                 return panel.__of__(self)
@@ -92,7 +69,7 @@ class PanelManager(Implicit, Traversable):
         return filter(IPanel.providedBy, assignments)
 
     def addPanel(self, *args):
-        """Add panel with the provided layout."""
+        """Add panel with the provided layout and optional css_class and heading"""
 
         # Find first available integer; we use this as the
         # panel name.
@@ -104,9 +81,6 @@ class PanelManager(Implicit, Traversable):
 
         panel = Panel(str(n), *args)
         aq_base(self._mapping)[panel.__name__] = panel
-
-        IStatusMessage(self.request).addStatusMessage(
-            _(u"Panel added."), type="info")
 
         return panel
 

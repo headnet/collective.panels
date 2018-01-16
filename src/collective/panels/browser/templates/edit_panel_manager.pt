@@ -7,8 +7,92 @@
      tal:attributes="id string:panelmanager-${view/normalized_manager_name};"
      i18n:domain="plone">
 
-<!--   <div metal:use-macro="context/@@manage-portlets-macros/macros/portlet-add-form" />
- -->
+<div class="section" i18n:domain="plone">
+
+    <h4 i18n:translate="heading_panels_add">
+        Add a new panel to this panel manager
+    </h4>
+
+    <form method="post" action="#"
+          class="panelAddForm"
+          tal:define="layouts view/available_layouts;
+                      css_classes view/css_classes;"
+          tal:attributes="action string:${view/baseUrl}/@@addpanel">
+      <span tal:replace="structure context/@@authenticator/authenticator"/>
+      <input type="hidden" name="referer" tal:attributes="value view/referer" />
+
+      <div class="field">
+        <label class="horizontal" for="form-panel-layout">
+          <span i18n:translate="label_panel_layout">Panel layout</span>
+          <span class="required horizontal" title="Required"
+                i18n:attributes="title title_required;">&nbsp;</span>
+          <span class="formHelp"
+              i18n:translate="help_panel_layout">
+          </span>
+        </label>
+
+        <div class="fieldErrorBox"
+             tal:content="structure error/render|nothing">
+            Error
+        </div>
+
+        <select id="form-panel-layout"
+                class="select-widget required choice-field"
+                name="layout">
+          <option tal:repeat="layout layouts"
+                  tal:attributes="name layout/name;
+                                  value layout/name;">
+            <tal:title i18n:translate="" tal:replace="layout/title" /> -
+            <tal:description i18n:translate="" tal:replace="layout/description" />
+            &nbsp;
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="horizontal" for="form-panel-cssclass">
+          <span i18n:translate="label_panel_cssclass">Panel css class</span>
+          <span class="formHelp"
+              i18n:translate="help_panel_cssclass">
+          </span>
+        </label>
+
+        <div class="fieldErrorBox"
+             tal:content="structure error/render|nothing">
+            Error
+        </div>
+
+        <select id="form-panel-cssclass"
+                class="select-widget choice-field"
+                name="css_class">
+          <option tal:repeat="css_class css_classes"
+                  tal:attributes="name css_class/name;
+                                  value css_class/name;"
+                  tal:content="css_class/title">
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label i18n:domain="plone" i18n:translate=""
+               for="form-panel-heading" class="horizontal">Title</label>
+        <input id="form-panel-heading"
+               name="heading"
+               type="text"
+               class="text-widget textline-field"
+               placeholder="Provide a heading for the panel or leave blank to omit"
+               i18n:attributes="placeholder"
+               />
+      </div>
+
+        <input class="standalone"
+               type="submit"
+               value="Add panel"
+               i18n:attributes="value label_add_panel;"/>
+
+    </form>
+</div>
+
 
 <div class="portletAssignments"
     i18n:domain="plone"
@@ -52,7 +136,7 @@
                           tal:attributes="name string:${portlet/name}-down">&#9660;</button>
                       </form>
 
-                      <form class="portlet-action" method="POST" tal:attributes="action portlet/show_url"
+<!--                       <form class="portlet-action" method="POST" tal:attributes="action portlet/show_url"
                           tal:condition="not: portlet/visible">
                         <input type="hidden" name="referer" tal:attributes="value view/url_quote_referer" />
                         <input type="hidden" name="key" tal:attributes="value view/key" />
@@ -73,7 +157,7 @@
                         <button type="submit" i18n:translate="label_hide_item"
                           tal:attributes="name string:${portlet/name}-hide">Hide</button>
                       </form>
-
+ -->
                       <form class="portlet-action delete" method="POST" tal:attributes="action portlet/delete_url">
                         <input type="hidden" name="referer" tal:attributes="value view/url_quote_referer" />
                         <input type="hidden" name="key" tal:attributes="value view/key" />
@@ -82,6 +166,16 @@
                         <span tal:replace="structure authenticator"/>
                         <button i18n:attributes="title" title="Remove" type="submit"
                           tal:attributes="name string:${portlet/name}-remove">&times;</button>
+                      </form>
+
+                      <form class="portlet-action duplicate" method="POST" tal:attributes="action portlet/duplicate_url">
+                        <input type="hidden" name="referer" tal:attributes="value view/url_quote_referer" />
+                        <input type="hidden" name="key" tal:attributes="value view/key" />
+                        <input type="hidden" name="name" tal:attributes="value portlet/name" />
+                        <input type="hidden" name="viewname" tal:attributes="value view/view_name" />
+                        <span tal:replace="structure authenticator"/>
+                        <button i18n:translate="label_duplicate_item" type="submit"
+                          tal:attributes="name string:${portlet/name}-duplicate">Duplicate</button>
                       </form>
                     </span>
                 </div>

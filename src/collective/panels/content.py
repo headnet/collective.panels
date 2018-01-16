@@ -134,10 +134,12 @@ class Panel(PortletContainerAssignment):
     heading = u""
     css_class = u""
 
-    def __init__(self, name, layout, *assignments):
+    def __init__(self, name, layout, css_class=None, heading=None, *assignments):
         super(Panel, self).__init__(name, *assignments)
         self.layout = layout
+        self.css_class = css_class
+        self.heading = heading
 
     @property
     def title(self):
-        return _(u"Panel ${name}", mapping={'name': self.__name__})
+        return _(u"Panel ${name} - ${heading}", mapping={'name': self.__name__, 'heading': self.heading})

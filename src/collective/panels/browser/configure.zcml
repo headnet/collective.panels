@@ -89,21 +89,10 @@
       name="manage-panels"
       template="templates/manage-contextual.pt"
       />
-<!--     <browser:page
-      name="set-portlet-blacklist-status"
-      attribute="set_blacklist_status"
-      />
-    <browser:page
-      name="delete"
-      attribute="delete"
-      />
+<!--
     <browser:page
       name="save"
       attribute="save"
-      />
-    <browser:page
-      name="duplicate"
-      attribute="duplicate"
       />
     <browser:page
       name="change-layout"
@@ -118,7 +107,7 @@
       provides="collective.panels.interfaces.IPanelManagerRenderer"
       />
 
-  <!-- Operations on panels when in edit mode -->
+  <!-- Operations on panels when in edit mode - todo: more specific 'for'? -->
   <browser:pages
     for="plone.portlets.interfaces.IPortletAssignmentMapping"
     class=".editmanager.ManagePanelAssignments"
@@ -140,6 +129,11 @@
       attribute="move_panel_down"
       />
 
+    <browser:page
+      name="duplicate-panel"
+      attribute="duplicate_panel"
+      />
+
     <!-- todo later: -->
 <!--     <browser:page
       name="toggle-visibility"
@@ -147,6 +141,20 @@
       />
  -->
   </browser:pages>
+
+  <!-- Adding view for panel assignments -->
+  <browser:view
+    for="collective.panels.interfaces.IPanelManager"
+    name="addpanel"
+    class=".adding.PanelAdding"
+    permission="plone.app.portlets.ManagePortlets"
+    />
+
+  <class class=".adding.PanelAdding">
+    <require
+      permission="plone.app.portlets.ManagePortlets"
+      interface="collective.panels.interfaces.IPanelAdding" />
+  </class>
 
   <!-- Layouts -->
 

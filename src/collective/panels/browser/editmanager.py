@@ -30,6 +30,22 @@ from plone.portlets.interfaces import IPortletAssignmentSettings
 from collective.panels.interfaces import IPanelManagerRenderer
 from collective.panels.interfaces import IManagePanelsView
 from collective.panels.interfaces import IPanelManager
+from collective.panels.interfaces import ILayout
+from zope.component import getAdapters
+
+
+def lookup_layouts(request):
+    layouts = []
+
+    components = getAdapters((request, ), ILayout)
+
+    for name, layout in components:
+        layouts.append(layout)
+
+    # Sort by layout title
+    layouts.sort(key=lambda ptype: ptype['title'])
+
+    return layouts
 
 
 @implementer(IPanelManagerRenderer)
@@ -41,7 +57,6 @@ class EditPanelManagerRenderer(Explicit):
     template = ViewPageTemplateFile('templates/edit_panel_manager.pt')
 
     def __init__(self, context, request, view, manager):
-        from ipdb import set_trace; set_trace()
         self.__parent__ = view
         self.manager = manager
         self.context = context
@@ -61,7 +76,14 @@ class EditPanelManagerRenderer(Explicit):
             raise UpdateNotCalled
         return self.template()
 
-    # Used by the view template
+    @property
+    def available_layouts(self):
+        return lookup_layouts(self.request)
+
+    @property
+    def css_classes(self):
+        # todo: get from settings - see portlet metadata
+        return [{'name': 'class1', 'title': 'Class 1'}, {'name': 'class2', 'title': 'Class 2'}]
 
     @property
     def view_name(self):
@@ -102,7 +124,6 @@ class EditPanelManagerRenderer(Explicit):
         key = self.__parent__.key
 
         data = []
-        from ipdb import set_trace; set_trace()
         for idx in range(len(assignments)):
             name = assignments[idx].__name__
             if hasattr(assignments[idx], '__Broken_state__'):
@@ -122,7 +143,6 @@ class EditPanelManagerRenderer(Explicit):
                      key=key, name=name,))
 
             try:
-                # todo: I think we do not have this for panels:
                 settings = IPortletAssignmentSettings(assignments[idx])
                 visible = settings.get('visible', True)
             except TypeError:
@@ -134,9 +154,10 @@ class EditPanelManagerRenderer(Explicit):
                 'editview': editviewName,
                 'hash': panel_hash,
                 'name': name,
-                'up_url': '%s/@@move-portlet-up' % (base_url),
-                'down_url': '%s/@@move-portlet-down' % (base_url),
-                'delete_url': '%s/@@delete-portlet' % (base_url),
+                'up_url': '%s/@@move-panel-up' % (base_url),
+                'down_url': '%s/@@move-panel-down' % (base_url),
+                'delete_url': '%s/@@delete-panel' % (base_url),
+                'duplicate_url': '%s/@@duplicate-panel' % (base_url),
                 'hide_url': '%s/@@toggle-visibility' % (base_url),
                 'show_url': '%s/@@toggle-visibility' % (base_url),
                 'visible': visible,
@@ -251,6 +272,29 @@ class ManagePanelAssignments(BrowserView):
         contained.fixing_up = True
 
         del assignments[name]
+
+        # revert our fixing_up customization
+        contained.fixing_up = fixing_up
+
+        return self.finish_panel_change()
+
+    # view @@duplicate-panel
+    def duplicate_panel(self, name):
+        self.authorize()
+        assignments = aq_inner(self.context)
+        IPortletPermissionChecker(assignments)()
+
+        # set fixing_up to True to let zope.container.contained
+        # know that our object doesn't have __name__ and __parent__
+        fixing_up = contained.fixing_up
+        contained.fixing_up = True
+
+        source_panel = assignments[name]
+
+        from ipdb import set_trace; set_trace()
+        assignments.addPanel(
+            source_panel.layout, source_panel.css_class, source_panel.heading, *source_panel
+        )
 
         # revert our fixing_up customization
         contained.fixing_up = fixing_up
