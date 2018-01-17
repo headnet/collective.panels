@@ -42,6 +42,12 @@
       name="collective.panels.vocabularies.Managers"
       />
 
+  <utility
+      factory=".vocabularies.CssClassesVocabulary"
+      name="collective.panels.vocabularies.cssclasses"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      />
+
 
   <!-- The toolbar menu -->
   <browser:menu

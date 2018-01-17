@@ -66,9 +66,9 @@
                 class="select-widget choice-field"
                 name="css_class">
           <option tal:repeat="css_class css_classes"
-                  tal:attributes="name css_class/name;
-                                  value css_class/name;"
-                  tal:content="css_class/title">
+                  tal:attributes="name python:css_class[0];
+                                  value python:css_class[0];"
+                  tal:content="python:css_class[1]">
           </option>
         </select>
       </div>

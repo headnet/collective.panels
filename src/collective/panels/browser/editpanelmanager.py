@@ -32,6 +32,7 @@ from collective.panels.interfaces import IManagePanelsView
 from collective.panels.interfaces import IPanelManager
 from collective.panels.interfaces import ILayout
 from collective.panels.browser.manage import ManagePanel
+from zope.schema.interfaces import IVocabularyFactory
 
 from zope.component import getAdapters
 
@@ -48,6 +49,17 @@ def lookup_layouts(request):
     layouts.sort(key=lambda ptype: ptype['title'])
 
     return layouts
+
+
+def lookup_css_classes(context):
+    factory = getUtility(
+        IVocabularyFactory,
+        name="collective.panels.vocabularies.cssclasses"
+    )
+
+    return tuple(
+        (term.value, term.title) for term in factory(context)
+    )
 
 
 # todo: inherit?
@@ -85,8 +97,10 @@ class EditPanelManagerRenderer(Explicit):
 
     @property
     def css_classes(self):
+        from ipdb import set_trace; set_trace()
+        return lookup_css_classes(self.context)
         # todo: get from settings - see portlet metadata
-        return [{'name': 'class1', 'title': 'Class 1'}, {'name': 'class2', 'title': 'Class 2'}]
+        #return [{'name': 'class1', 'title': 'Class 1'}, {'name': 'class2', 'title': 'Class 2'}]
 
     @property
     def view_name(self):
