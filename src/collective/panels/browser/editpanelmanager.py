@@ -97,7 +97,6 @@ class EditPanelManagerRenderer(Explicit):
 
     @property
     def css_classes(self):
-        from ipdb import set_trace; set_trace()
         return lookup_css_classes(self.context)
         # todo: get from settings - see portlet metadata
         #return [{'name': 'class1', 'title': 'Class 1'}, {'name': 'class2', 'title': 'Class 2'}]
