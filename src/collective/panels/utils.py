@@ -18,6 +18,7 @@ def root_interface():
     return root_interface
 
 
+# todo: remove?
 def encode(name):
     return name.replace('.', '-')
 

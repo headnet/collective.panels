@@ -187,28 +187,13 @@ class PanelManagerMenu(BrowserMenu):
         managers = self.available_locations(context, request)
         current_url = context.absolute_url()
 
-        items.append({
-            'title': _(u'manage_all_panels', default=u'All…'),
-            'description': 'Manage all panels',
-            'action': addTokenToUrl(
-                '{0}/manage-panels'.format(
-                    current_url),
-                request),
-            'selected': False,
-            'icon': None,
-            'extra': {
-                'id': 'panel-manager-all',
-                'separator': None},
-            'submenu': None,
-        })
-
         for manager in managers:
             item = {
                 'title': PMF(manager['title'],
                            default=manager['title']),
                 'description': manager['name'],
                 'action': addTokenToUrl(
-                    '{0}/@@topbar-manage-panels/{1}'.format(
+                    '{0}/@@manage-panels/{1}'.format(
                         current_url,
                         manager['name']),
                     request),

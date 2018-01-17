@@ -8,7 +8,8 @@
 
   <div metal:fill-slot="main" tal:define="plone_view context/@@plone" class="pat-manage-panels">
 
-    <div class="quicknav-wrapper">
+<!-- TODO: https://stackoverflow.com/questions/5150363/onchange-open-url-via-select-jquery-->
+<!--     <div class="quicknav-wrapper">
       <form method="post"
           tal:attributes="action context/absolute_url">
         <select id="quicknav" class="switch-panel-manager pull-right" name=":action"
@@ -27,7 +28,7 @@
         <label for="quicknav" class="sr-only" i18n:translate="title_switch_panel_managers">Other panel managers</label>
       </form>
     </div>
-
+ -->
     <h1 class="documentFirstHeading"
       i18n:translate="title_manage_panels">
       Manage panels for
@@ -52,7 +53,7 @@
             i18n:name="go_here"
             i18n:translate="label_manage_panels_default_view_container_go_here"
             class="panels-link-to-parent"
-            tal:attributes="href string:${context/aq_inner/aq_parent/absolute_url}/@@topbar-manage-panels/${view/manager_name}">go here</a>.
+            tal:attributes="href string:${context/aq_inner/aq_parent/absolute_url}/@@manage-panels/${view/manager_name}">go here</a>.
       </div>
     </div>
 

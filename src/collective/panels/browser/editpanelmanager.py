@@ -31,6 +31,8 @@ from collective.panels.interfaces import IPanelManagerRenderer
 from collective.panels.interfaces import IManagePanelsView
 from collective.panels.interfaces import IPanelManager
 from collective.panels.interfaces import ILayout
+from collective.panels.browser.manage import ManagePanel
+
 from zope.component import getAdapters
 
 
@@ -48,6 +50,7 @@ def lookup_layouts(request):
     return layouts
 
 
+# todo: inherit?
 @implementer(IPanelManagerRenderer)
 class EditPanelManagerRenderer(Explicit):
     """Render a panel manager in edit mode.
@@ -149,7 +152,6 @@ class EditPanelManagerRenderer(Explicit):
                 visible = False
 
             data.append({
-                # todo: a panel has a heading
                 'title': assignments[idx].title,
                 'editview': editviewName,
                 'hash': panel_hash,
@@ -161,6 +163,7 @@ class EditPanelManagerRenderer(Explicit):
                 'hide_url': '%s/@@toggle-visibility' % (base_url),
                 'show_url': '%s/@@toggle-visibility' % (base_url),
                 'visible': visible,
+                'has_assignments': len(assignments[idx]),
                 })
         if len(data) > 0:
             data[0]['up_url'] = data[-1]['down_url'] = None
@@ -197,6 +200,18 @@ class EditPanelManagerRenderer(Explicit):
     @memoize
     def context_url(self):
         return str(getMultiAdapter((self.context, self.request), name='absolute_url'))
+
+    def render_edit_manager_panel_portlets(self, panel):
+        panel = self.manager[panel['name']]
+        manager_view = ManagePanel(panel, self.request)
+        # todo: what is the name used for
+        manager_view.__name__ = 'manage-portlets'
+        # get the renderer for the panel:
+        panel_renderer = getMultiAdapter((panel, self.request, manager_view, panel),
+                               IPortletManagerRenderer)
+        panel_renderer.update()
+        # todo _of_?
+        return panel_renderer.render()
 
 
 class ManagePanelAssignments(BrowserView):
@@ -290,8 +305,6 @@ class ManagePanelAssignments(BrowserView):
         contained.fixing_up = True
 
         source_panel = assignments[name]
-
-        from ipdb import set_trace; set_trace()
         assignments.addPanel(
             source_panel.layout, source_panel.css_class, source_panel.heading, *source_panel
         )
@@ -314,6 +327,7 @@ class ManagePanelAssignments(BrowserView):
             referer = '%s/@@manage-panel' % (url,)
         return referer
 
+    # todo:
     # def toggle_visibility(self, name):
     #     self.authorize()
     #     assignments = aq_inner(self.context)

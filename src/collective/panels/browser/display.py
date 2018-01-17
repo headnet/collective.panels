@@ -171,6 +171,7 @@ class DisplayPanelManagerViewlet(BaseViewlet):
     def normalized_manager_name(self):
         # Get the viewlet manager name. It is also used as the panel manager
         # name.
+        # todo - this is not normalized
         return self.manager.__name__
 
     @property

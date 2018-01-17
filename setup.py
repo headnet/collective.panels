@@ -44,7 +44,6 @@ setup(
         'plone.app.portlets>=4.0.0',
         'plone.app.layout',
         'setuptools',
-        'z3c.jbot',
     ],
     extras_require={
         'test': [

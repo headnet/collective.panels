@@ -16,6 +16,7 @@ from plone.app.portlets.interfaces import IPortletPermissionChecker
 from Products.statusmessages.interfaces import IStatusMessage
 from AccessControl import Unauthorized
 from collective.panels import _
+from Products.CMFPlone.utils import safe_unicode
 
 
 class PanelAdding(BrowserView):
@@ -27,7 +28,6 @@ class PanelAdding(BrowserView):
             raise Unauthorized
 
     def __call__(self):
-        from ipdb import set_trace; set_trace()
         self.authorize()
         self.add()
         return self.request.response.redirect(self.nextURL())
@@ -46,7 +46,7 @@ class PanelAdding(BrowserView):
         if not layout:
             raise BadRequest("Missing layout.")
         css_class = self.request.get('css_class', '')
-        heading = self.request.get('heading', '')
+        heading = safe_unicode(self.request.get('heading', ''))
 
         manager.addPanel(layout, css_class, heading)
 

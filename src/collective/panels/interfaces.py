@@ -14,6 +14,7 @@ from zope.browser.interfaces import IAdding
 
 #todo: check this:
 from plone.app.portlets.interfaces import IColumn
+from plone.app.portlets.browser.interfaces import IManageColumnPortletsView
 
 
 class ICollectivePanelsLayer(IDefaultBrowserLayer):
@@ -51,12 +52,8 @@ class IPanelManagerMenu(IBrowserMenu):
     """
 
 
-class ITopbarManagePanels(Interface):
-    pass
-
-
 class IManagePanelsView(Interface):
-    """Marker for the manage contextual portlets view
+    """Marker for the manage panels view (the panel manager)
     """
     # todo: remove categ.
     category = Attribute("The portlet category being managed")
@@ -69,6 +66,11 @@ class IManagePanelsView(Interface):
     def getAssignmentsForManager(manager):
         """Get the assignments in the current context for the given manager.
         """
+
+
+class IManagePanelView(IManageColumnPortletsView):
+    """ Marker for the manage panel view (the panel as a portlet manager)
+    """
 
 
 class IPanelAdding(IAdding):

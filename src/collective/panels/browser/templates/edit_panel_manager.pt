@@ -9,9 +9,9 @@
 
 <div class="section" i18n:domain="plone">
 
-    <h4 i18n:translate="heading_panels_add">
+    <h3 i18n:translate="heading_panels_add">
         Add a new panel to this panel manager
-    </h4>
+    </h3>
 
     <form method="post" action="#"
           class="panelAddForm"
@@ -98,9 +98,9 @@
     i18n:domain="plone"
     tal:define="panels view/panels">
 
-    <h4 i18n:translate="heading_panels_assigned_here" tal:condition="panels">
+    <h3 i18n:translate="heading_panels_assigned_here" tal:condition="panels">
         Panels assigned here
-    </h4>
+    </h3>
 
     <div>
         <tal:block repeat="panel panels">
@@ -179,6 +179,9 @@
                       </form>
                     </span>
                 </div>
+
+                <span tal:replace="structure python:view.render_edit_manager_panel_portlets(panel)" />
+
             </div>
         </tal:block>
     </div>
