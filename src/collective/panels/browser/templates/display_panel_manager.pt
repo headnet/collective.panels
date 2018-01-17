@@ -1,4 +1,3 @@
-PANELMANAGER: <tal:panelmanagerdebug tal:content="view/normalized_manager_name"></tal:panelmanagerdebug>
 <div class="panels" i18n:domain="collective.panels"
      tal:define="panels view/panels"
      tal:condition="python: panels">
