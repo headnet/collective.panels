@@ -6,7 +6,7 @@
 
       <div tal:attributes="class string:panel panel-${repeat/panel/index} panel-${panel/layout}"
            tal:condition="html"
-           tal:content="structure html">
+           tal:content="structure html"/>
 
     </tal:render>
   </tal:panels>
