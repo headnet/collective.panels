@@ -2,9 +2,10 @@
      tal:define="panels view/panels"
      tal:condition="python: panels">
   <tal:panels repeat="panel panels">
-    <tal:render define="html panel/@@display-panel">
+    <tal:render define="html panel/@@display-panel;
+                        panel_css_class panel/css_class;">
 
-      <div tal:attributes="class string:panel panel-${repeat/panel/index} panel-${panel/layout}"
+      <div tal:attributes="class string:panel panel-${repeat/panel/index} panel-${panel/layout} ${panel_css_class}"
            tal:condition="html"
            tal:content="structure html"/>
 

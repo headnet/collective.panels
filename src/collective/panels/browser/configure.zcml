@@ -161,6 +161,20 @@
       template="layouts/horizontal.pt"
       />
 
+  <browser:panellayout
+      name="two-thirds-left"
+      title="B"
+      description="First portlet takes up 2/3 to the left, the rest stack to the right"
+      template="layouts/twothirdsleft.pt"
+      />
+
+  <browser:panellayout
+      name="two-thirds-right"
+      title="C"
+      description="First portlet takes up 2/3 to the right, the rest stack to the left"
+      template="layouts/twothirdsright.pt"
+      />
+
   <!-- Control panel -->
   <browser:page
       name="panels-controlpanel"

@@ -1,6 +1,6 @@
 <div class="row"
      tal:define="portlets portlets | python: (1, 2, 3, '&rarr;');
-                 portlet_count python:len(portlets);
+                 portlet_count python:len(portlets) or 1;
                  colwidth python:12/portlet_count;"
      tal:condition="portlets">
   <tal:loop tal:repeat="portlet portlets">
