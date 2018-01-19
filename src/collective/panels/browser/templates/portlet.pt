@@ -1,9 +1,9 @@
-<tal:block define="portlet options">
+<tal:block define="portlet options;
+                   settings_css_class portlet/settings/css_class|nothing;">
   <div class="portletWrapper"
     tal:attributes="id string:portletwrapper-${portlet/hash};
-                    data-portlethash portlet/hash">
-      <div tal:attributes="class portlet/settings/css_class | nothing">
-        <tal:block content="structure python:view.safe_render_portlet(portlet['renderer'])" />
-      </div>
+                    data-portlethash portlet/hash;
+                    class string:portletWrapper ${settings_css_class}">
+      <tal:block content="structure python:view.safe_render_portlet(portlet['renderer'])" />
     </div>
 </tal:block>
