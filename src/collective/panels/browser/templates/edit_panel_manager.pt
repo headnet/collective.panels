@@ -51,7 +51,7 @@
 
       <div class="field">
         <label class="horizontal" for="form-panel-cssclass">
-          <span i18n:translate="label_panel_cssclass">Panel css class</span>
+          <span i18n:translate="label_panel_cssclass">Appearance</span>
           <span class="formHelp"
               i18n:translate="help_panel_cssclass">
           </span>

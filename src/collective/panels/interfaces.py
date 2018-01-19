@@ -37,7 +37,7 @@ class IPanel(IColumn, IContained):
 
     heading = Attribute("Panel heading.")
 
-    css_class = Attribute("Panel css class.")
+    css_class = Attribute("Appearance.")
 
 
 class IPanelManagerSubMenuItem(IBrowserSubMenuItem):
