@@ -88,7 +88,7 @@ class DisplayPanelView(BrowserView):
                      self.request,
                      self,
                      panel,
-                     assignment), IPortletRenderer)
+                     assignment.__of__(panel)), IPortletRenderer)
             except ComponentLookupError:
                 logging.getLogger("panels").info(
                     "unable to look up renderer for '%s.%s'." % (
