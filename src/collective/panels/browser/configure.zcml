@@ -120,13 +120,6 @@
     permission="plone.app.portlets.ManagePortlets"
     />
 
-  <class class=".adding.PanelAdding">
-    <require
-      permission="plone.app.portlets.ManagePortlets"
-      interface="collective.panels.interfaces.IPanelAdding" />
-  </class>
-
-
   <!-- Manage view for a panel -->
   <browser:pages
     for="collective.panels.content.Panel"

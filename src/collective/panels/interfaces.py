@@ -73,11 +73,6 @@ class IManagePanelView(IManageColumnPortletsView):
     """
 
 
-class IPanelAdding(IAdding):
-    """Marker interface for the add view for panel managers.
-    """
-
-
 class IPanelManager(Interface):
     """Marker for the manage contextual portlets view
     """

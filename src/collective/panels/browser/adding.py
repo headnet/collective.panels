@@ -1,22 +1,16 @@
 # -*- coding: utf-8 -*-
-from warnings import warn
-
-from zope.interface import implementer
-from zope.component import getMultiAdapter
-
-from zope.container.interfaces import INameChooser
-
-from Acquisition import aq_inner, aq_base, aq_parent
-from OFS.SimpleItem import SimpleItem
-from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
-
-from collective.panels.interfaces import IPanelAdding
-from plone.app.portlets.interfaces import IPortletPermissionChecker
-from Products.statusmessages.interfaces import IStatusMessage
 from AccessControl import Unauthorized
+from Acquisition import aq_base
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from collective.panels import _
+from plone.app.portlets.interfaces import IPortletPermissionChecker
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from zExceptions import BadRequest
+from zope.component import getMultiAdapter
 
 
 class PanelAdding(BrowserView):
@@ -31,7 +25,6 @@ class PanelAdding(BrowserView):
         self.authorize()
         self.add()
         return self.request.response.redirect(self.nextURL())
-
 
     def add(self):
         """Add the panel to the panel manager
@@ -52,7 +45,6 @@ class PanelAdding(BrowserView):
 
         IStatusMessage(self.request).addStatusMessage(
             _(u"Panel added."), type="info")
-
 
     @property
     def referer(self):
