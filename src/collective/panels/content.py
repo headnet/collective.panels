@@ -58,7 +58,7 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
     def __getitem__(self, name):
         for assignment in self:
             if assignment.__name__ == name:
-                return assignment
+                return assignment.__of__(self)
 
         raise KeyError(name)
 
