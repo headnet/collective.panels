@@ -14,12 +14,8 @@
 
   <div class="col-sm-4">
     <tal:loop tal:repeat="portlet python: portlets[1:]">
-      <div class="col"
-           tal:define="index repeat/portlet/index;"
-           tal:attributes="class string:col-sm-12;">
-        <div tal:attributes="class string:content portlet-${index}"
+        <div tal:attributes="class string:content portlet-${repeat/portlet/index}"
              tal:content="structure portlet" />
-      </div>
     </tal:loop>
   </div>
 
