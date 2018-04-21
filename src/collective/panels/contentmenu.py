@@ -69,7 +69,7 @@ class PanelManagerSubMenuItem(BrowserSubMenuItem):
     def available(self):
         secman = getSecurityManager()
         has_manage_panels_permission = secman.checkPermission(
-            'Portlets: Manage portlets',
+            self.MANAGE_SETTINGS_PERMISSION,
             self.context
         )
         if not has_manage_panels_permission:
