@@ -1,11 +1,10 @@
-define([
+define("pat-manage-panels", [
   'jquery',
   'pat-base',
   'mockup-utils',
   'mockup-patterns-modal',
   'translate',
-  'pat-logger',
-  'jquery.form'
+  'pat-logger'
 ], function ($, Base, utils, Modal, _t, logger) {
   'use strict';
 
